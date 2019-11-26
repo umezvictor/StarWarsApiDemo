@@ -18,7 +18,7 @@ import React from 'react'
                     <h6>Getting Started</h6>
                     <p>
                         Let's try making our first API request. Using Postman or any other HTTP client of your choice, 
-                        make a GET request to http://starwarsapitest.herokuapp.com/api/list-all-comments <br />
+                        make a GET request to https://starwarsapitest.herokuapp.com/api/list-all-comments <br />
                         Below is the response gotten
                     </p>
                     <div className="bg-light">
@@ -34,13 +34,13 @@ import React from 'react'
 
 
                     <h6>Root URL</h6>
-                    <p>The root URL for this API is http://starwarsapitest.herokuapp.com/api/</p>
+                    <p>The root URL for this API is https://starwarsapitest.herokuapp.com/api/</p>
 
                     <h6>Authentication</h6>
-                    <p>No authentication is required to use this API. It is a completely open API. So, feel free to use to it.</p>
+                    <p>No authentication is required to use this API. It is a completely open API. So, feel free to use it.</p>
 
                     <hr />
-
+                   
                     <h3 className="text-success">Resources</h3>
                     <hr />
 
@@ -53,7 +53,7 @@ import React from 'react'
 
 
                     <h6>Sample request</h6>
-                    <p>http://starwarsapitest.herokuapp.com/api/list-all-movies/</p>
+                    <p>https://starwarsapitest.herokuapp.com/api/list-all-movies/</p>
 
                     <h6>Sample response</h6>
                     <div className="bg-light">
@@ -151,8 +151,24 @@ import React from 'react'
                         <li>/list-all-comments/ --- lists all comments in reverse chronological order (GET requets)</li>
                     </ul>
                     
-                    <h6>Sample request</h6>
-                    <p>http://starwarsapitest.herokuapp.com/api/list-all-comments</p>
+                    <h6>Sample requests</h6>
+
+                    <p>1. Add a new comment:  https://starwarsapitest.herokuapp.com/api/add-comments <br />
+                    Stores the comment sent from the json request body</p>
+
+                    <h6>Sample request body</h6>
+                    <div className="bg-light">
+                        <pre><code>
+                        {'{'}<br />
+                        
+                                "comment": "I love this great movie"<br />
+                        {'}'}
+                        </code></pre>
+                    
+                    </div>
+
+
+                    <p>2. List all comments: https://starwarsapitest.herokuapp.com/api/list-all-comments</p>
 
                     <h6>Sample response</h6>
                     <div className="bg-light">
@@ -166,8 +182,6 @@ import React from 'react'
                         </code></pre>
                       
                     </div>
-                   
-                        
 
                     <h6>Attributes</h6>
                     <ul>
@@ -197,14 +211,14 @@ import React from 'react'
                     This endpoint accepts two types of parameters:</p>
                     
                     <p>Sort parameter -- sorts by height. Returns all characters in ascending order of their geight. <br />
-                    Example: http://starwarsapitest.herokuapp.com/api/get-characters/?search=male  -- returns all male characters</p>
+                    Example: https://starwarsapitest.herokuapp.com/api/get-characters/?search=male  -- returns all male characters</p>
                     <p>Filter parameter -- filters by gender. <br />
-                    Example: http://starwarsapitest.herokuapp.com/api/get-characters/?height=165  -- returns all charcters in ascending order of their heights</p>
+                    Example: https://starwarsapitest.herokuapp.com/api/get-characters/?height=165  -- returns all charcters in ascending order of their heights</p>
                     
                     
                     
                     <h6>Sample Request</h6>
-                    <p>http://starwarsapitest.herokuapp.com/api/get-characters/?search=female</p>
+                    <p>https://starwarsapitest.herokuapp.com/api/get-characters/?search=female</p>
                     
 
                     <h6>Sample response</h6>

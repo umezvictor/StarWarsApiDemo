@@ -12,15 +12,18 @@ const connection = require('../config/index');
 const router = express.Router();
 
 // setup connection to database
-const client = new Client({
-    user: connection.USER,
-    password: connection.PASSWORD,
-    database: connection.DATABASE,
-    port: connection.DBPORT,
-    host: connection.HOST,
-    ssl: connection.SSL
-  })
+// const client = new Client({
+//     user: connection.USER,
+//     password: connection.PASSWORD,
+//     database: connection.DATABASE,
+//     port: connection.DBPORT,
+//     host: connection.HOST,
+//     ssl: connection.SSL
+//   })
 
+  const client = new Client({
+      connectionString: connection.POSTGRES_URI
+  })
 
   client.connect()
   
