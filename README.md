@@ -26,7 +26,15 @@ These are comments by anonymous people. The request must be made in JSON format
 
 Endpoints
 
-/add-comments/ --- Adds a new comment (POST request)
+/add-comments/ --- Adds a new comment (POST request). Stores the comment sent from the json request body.
+
+Sample request for the /add-comments/ endpoint
+
+{
+
+  "comment": "I love this movie"
+  
+}
 
 /list-all-comments/ --- lists all comments in reverse chronological order (GET requets)
 
