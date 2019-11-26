@@ -2,7 +2,7 @@ This documentation is intended to help developers learn how to use the resources
 
 Root URL
 
-The root URL for this API is http://starwarsapitest.herokuapp.com/api/
+The root URL for this API is https://starwarsapitest.herokuapp.com/api/
 
 Authentication
 
@@ -18,7 +18,7 @@ Request Type: GET
 
 Sample request
 
-http://starwarsapitest.herokuapp.com/api/list-all-movies/
+https://starwarsapitest.herokuapp.com/api/list-all-movies/
 
 Comments
 
@@ -40,7 +40,7 @@ Sample request for the /add-comments/ endpoint
 
 Sample request
 
-http://starwarsapitest.herokuapp.com/api/list-all-comments
+https://starwarsapitest.herokuapp.com/api/list-all-comments
 
 Characters
 
@@ -54,15 +54,15 @@ This endpoint accepts two types of parameters:
 
 Sort parameter -- sorts by height. Returns all characters in ascending order of their height.
 
-Example: http://starwarsapitest.herokuapp.com/api/get-characters/?search=male -- returns all male characters
+Example: https://starwarsapitest.herokuapp.com/api/get-characters/?search=male -- returns all male characters
 
 Filter parameter -- filters by gender.
 
-Example: http://starwarsapitest.herokuapp.com/api/get-characters/?height=165 -- returns all charcters in ascending order of their heights
+Example: https://starwarsapitest.herokuapp.com/api/get-characters/?height=165 -- returns all charcters in ascending order of their heights
 
 Sample Request
 
-http://starwarsapitest.herokuapp.com/api/get-characters/?search=female
+https://starwarsapitest.herokuapp.com/api/get-characters/?search=female
 
 HTTP Response codes
 
