@@ -7,6 +7,7 @@ import React from 'react'
                 <div className="col-md-12">
                     <br />
                     <h3 className="text-success">Documentation</h3>
+                    <h6>Star Wars API Demo -- version 1.0</h6>
                     <hr />
                     <h3>Introduction</h3>
                     <p>
@@ -18,23 +19,29 @@ import React from 'react'
                     <h6>Getting Started</h6>
                     <p>
                         Let's try making our first API request. Using Postman or any other HTTP client of your choice, 
-                        make a GET request to https://starwarsapitest.herokuapp.com/api/list-all-comments <br />
+                        make a GET request to https://starwarsapitest.herokuapp.com/api/v1.0/comments <br />
                         Below is the response gotten
                     </p>
                     <div className="bg-light">
                         <pre><code>
                             {'{'}<br />
-                            "id": 1,<br />
-                                "ipaddress": "154.113.98.190",<br />
-                                "created_at": "Sun, 24 Nov 2019",<br />
-                                "substring": "I love this great movie"<br />
+                                "data": [<br />
+                                            {'{'}<br />
+                                            
+                                            "id": 1,<br />
+                                            "ipaddress": "154.113.98.190",<br />
+                                            "created_at": "Sun, 24 Nov 2019",<br />
+                                            "substring": "I love this great movie"<br />
+                                {'}'} <br />    
+                               ]<br />
+                            
                             {'}'}
                         </code></pre>
                     </div>
 
 
                     <h6>Root URL</h6>
-                    <p>The root URL for this API is https://starwarsapitest.herokuapp.com/api/</p>
+                    <p>The root URL for this API is https://starwarsapitest.herokuapp.com/api/v1.0/</p>
 
                     <h6>Authentication</h6>
                     <p>No authentication is required to use this API. It is a completely open API. So, feel free to use it.</p>
@@ -48,16 +55,17 @@ import React from 'react'
                     <p>This is a list of all Star Wars Movies</p>
 
                     <h6>Endpoint</h6>
-                    <p>/list-all-movies/  --- returns all Star Wars in chronological order of their release dates <br />
+                    <p>/movies  --- returns all Star Wars in chronological order of their release dates <br />
                     Request Type: GET </p>
 
 
                     <h6>Sample request</h6>
-                    <p>https://starwarsapitest.herokuapp.com/api/list-all-movies/</p>
+                    <p>https://starwarsapitest.herokuapp.com/api/v1.0/movies</p>
 
                     <h6>Sample response</h6>
                     <div className="bg-light">
                         <pre><code>
+                            "data": 
                         {'{'}<br />
                             "title": "A New Hope", <br />
                             "episode_id": 4,<br />
@@ -137,28 +145,25 @@ import React from 'react'
 
 
 
-
-
-
-
                     <h4>Comments</h4>
                     <p>These are comments by anonymous people. The request must be made in JSON format</p>
 
                     <h6>Endpoints</h6>
                     
                     <ul>
-                        <li>/add-comments/ --- Adds a new comment (POST request) </li>
-                        <li>/list-all-comments/ --- lists all comments in reverse chronological order (GET requets)</li>
+                        <li>GET  /comments  --- Adds a new comment  </li>
+                        <li>POST  /comment --- lists all comments in reverse chronological order </li>
                     </ul>
                     
                     <h6>Sample requests</h6>
 
-                    <p>1. Add a new comment:  https://starwarsapitest.herokuapp.com/api/add-comments <br />
+                    <p>1. Add a new comment:  https://starwarsapitest.herokuapp.com/api/V1.0/comments <br />
                     Stores the comment sent from the json request body</p>
 
                     <h6>Sample request body</h6>
                     <div className="bg-light">
                         <pre><code>
+                            
                         {'{'}<br />
                         
                                 "comment": "I love this great movie"<br />
@@ -168,16 +173,21 @@ import React from 'react'
                     </div>
 
 
-                    <p>2. List all comments: https://starwarsapitest.herokuapp.com/api/list-all-comments</p>
+                    <p>2. List all comments: https://starwarsapitest.herokuapp.com/api/v1.0/comments</p>
 
                     <h6>Sample response</h6>
                     <div className="bg-light">
                         <pre><code>
                         {'{'}<br />
-                        "id": 1,<br />
+                        "data": [<br />
+                            {'{'}<br />
+                            "id": 1,<br />
                                 "ipaddress": "154.113.98.190",<br />
                                 "created_at": "Sun, 24 Nov 2019",<br />
                                 "substring": "I love this great movie"<br />
+                                {'}'}<br />
+                        ]<br />
+                        
                          {'}'}
                         </code></pre>
                       
@@ -202,30 +212,30 @@ import React from 'react'
 
 
                     <h4>Characters</h4>
-                    <p>These are the Characters (people) featured in the movies. <br />
-                    Request Type: GET </p>
+                    <p>These are the Characters (people) featured in the movies </p>
                    
 
                     <h6>Endpoint</h6>
-                    <p>/get-characters/ <br />
+                    <p>GET /characters/ <br />
                     This endpoint accepts two types of parameters:</p>
                     
                     <p>Sort parameter -- sorts by height. Returns all characters in ascending order of their geight. <br />
-                    Example: https://starwarsapitest.herokuapp.com/api/get-characters/?search=male  -- returns all male characters</p>
+                    Example: https://starwarsapitest.herokuapp.com/api/v1.0/characters/?gender=male  -- returns all male characters</p>
                     <p>Filter parameter -- filters by gender. <br />
-                    Example: https://starwarsapitest.herokuapp.com/api/get-characters/?height=165  -- returns all charcters in ascending order of their heights</p>
+                    Example: https://starwarsapitest.herokuapp.com/api/v1.0/characters/?height=165  -- returns all charcters in ascending order of their heights</p>
                     
                     
                     
                     <h6>Sample Request</h6>
-                    <p>https://starwarsapitest.herokuapp.com/api/get-characters/?search=female</p>
+                    <p>https://starwarsapitest.herokuapp.com/api/v1.0/characters/?gender=female</p>
                     
 
                     <h6>Sample response</h6>
                     <div className="bg-light">
                         <pre><code>
                             {'{'}<br />
-                            
+                            "data": [<br />
+                                {'{'}<br />
                                 "name": "Leia Organa",<br />
                                 "height": "150",<br />
                                 "mass": "49",<br />
@@ -252,8 +262,8 @@ import React from 'react'
                                 "created": "2014-12-10T15:20:09.791000Z",<br />
                                 "edited": "2014-12-20T21:17:50.315000Z",<br />
                                 "url": "https://swapi.co/api/people/5/"<br />
-                            },<br />
-                    
+                                {'}'}<br />
+                            ] <br />   
                             {'}'}  
                         </code></pre>
                     </div>    

@@ -12,18 +12,15 @@ const connection = require('../config/index');
 const router = express.Router();
 
 // setup connection to database
-// const client = new Client({
-//     user: connection.USER,
-//     password: connection.PASSWORD,
-//     database: connection.DATABASE,
-//     port: connection.DBPORT,
-//     host: connection.HOST,
-//     ssl: connection.SSL
-//   })
-
-  const client = new Client({
-      connectionString: connection.POSTGRES_URI
+const client = new Client({
+    user: connection.USER,
+    password: connection.PASSWORD,
+    database: connection.DATABASE,
+    port: connection.DBPORT,
+    host: connection.HOST,
+    ssl: connection.SSL
   })
+
 
   client.connect()
   
@@ -33,107 +30,6 @@ const router = express.Router();
     }
    
   });
-
-
-// @route:  GET /list-all-movies
-// @description: list names of all star war movies along with their opening crawls and comment counts
-// should be sorted by release date from earliest to newest - ascending order
-// @access: public
-
-router.get('/list-all-movies', async (req, res) => {
-
-    try {
-        // make external api call to fetch all movies
-        const apiResponse = await axios.get('https://swapi.co/api/films');
-        const movieData = apiResponse.data;
-        // access the 'results' array property in api response
-        const resultsArray = movieData.results;
-        // get count of comments from sql database
-        const getAllRows = await client.query('SELECT COUNT(*) FROM comments');
-        const numberOfComments = getAllRows.rows[0].count;
-        // status 200 - ok -- success
-        // return movies in ascending order of release date along with count of comments
-        res.status(200).json({
-            commentCount: numberOfComments,
-            movies: resultsArray.sort((a, b) => (a.release_date > b.release_date) ? 1 : -1)
-        });            
-    } catch (err) {
-        // status 400 -- bad request -- failed
-        res.status(404).json({
-            error: "No record found"
-        })
-    }   
-});
-
-// @route:  POST /add-comments
-// @description: endpoint for adding anonymous comments for a movie -- stored in postgresql databse
-// @access: public
-/**
- * schema for comments
- * ip address of commenter
- * created_at timestamp  -- insert this automatically
- * comment
- */
-router.post('/add-comments', async (req, res) => {
-
-    const { comment} = req.body;
-
-    // check if incoming data is of json format
-    if(!req.is('application/json')){
-        return res.status(400).json({
-            error: "Only json format is allowed"
-        });
-    }
-    // get commenter's ip address
-    const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    // get the date and time
-    const d = new Date();
-    // convert date to UTC format
-    const dateTime = d.toUTCString();
-    // create insert query
-    const text = 'INSERT INTO comments(comment, ipaddress, created_at) VALUES($1, $2, $3) RETURNING *';
-    const values = [comment, ipAddress, dateTime];
-    try {
-        // save comment
-        const data = await client.query(text, values)
-        res.status(201).send(data.rows[0]);
-    } catch (err) {
-        res.status(400).json({
-            error: "Commented could not be added, try again"
-        })
-    } 
-});
-
-
-
-// @route:  GET /list-all-comments
-// @access: public
-
-// @description: 
-// endpoint for adding anonymous comments for a movie -- stored in sql database
-// listing anonymous comments for a movie
-// should be retrieved in reverse chronological order -- (descending order of id) -- newest to earliest
-// should be retrieved along with the public ip address of the commenter and utc date&time they were stored
-// comment length should not exceed 500 characters
-// the formated comment is returned as 'substring'
-
-router.get('/list-all-comments', async (req, res) => {
-
-    try {
-        // SELECT query to fetch comments from sql database
-        // substring(comment,1,500) --- returns a maximum of 500 characters from the comment field in comments table
-        const sql = `SELECT id, ipaddress, created_at, substring(comment,1,500) FROM comments ORDER BY id DESC`;
-        const data = await client.query(sql);
-        res.status(200).send(data.rows);
-    } catch (error) {
-        res.status(404).json({
-            error: "No record found"
-        });
-    }
-  
-});
-
-
 // @route:  GET /get-characters
 // @access: public
 
@@ -146,10 +42,10 @@ router.get('/list-all-comments', async (req, res) => {
 // the total height should be provided in cm and in feet/inches.
 
 // eslint-disable-next-line consistent-return
-router.get('/get-characters', async (req, res) => {
+router.get('/characters', async (req, res) => {
     
     // get filter parameter
-    const filter = req.query.search;
+    const filter = req.query.gender;
 
     // accepts height as sort parameter
     // eslint-disable-next-line radix
@@ -209,7 +105,11 @@ router.get('/get-characters', async (req, res) => {
             // length of filteredResult array will be zero if that's the case
             if(filteredResult.length === 0){
                 return res.status(404).json({
-                    error: "No matching record found"
+                    errors: [{
+                        "message": "No matching record found",
+                        "status": "404",
+                        "code": "002"
+                    }]
                 });
             }
             // -- display filtered result in ascending order
@@ -226,19 +126,28 @@ router.get('/get-characters', async (req, res) => {
        
      // if filter and sort parameter are not provided or when sort parameter is not a number
      if(!filter && !sortOrder){
-         res.status(400).json({
-             error: "Please provide a valid search or filter parameter"
-         });
+         
+        return res.status(400).json({
+            errors: [{
+                "message": "Please provide a valid search or filter parameter",
+                "status": "400",
+                "code": "001"
+            }]
+        });
+
      } 
     // if something goes wrong  
     } catch (error) {
-        res.status(400).json({
-            error: "Something went wrong, please try again"
+    
+        return res.status(400).json({
+            errors: [{
+                "message": "Something went wrong, please try again",
+                "status": "400",
+                "code": "001"
+            }]
         });
     }
 
-})
+});
 
 module.exports = router;
-
-
